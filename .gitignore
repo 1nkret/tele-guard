@@ -162,6 +162,7 @@ cython_debug/
 #.idea/
 
 .idea
+.vscode
 media/take_photo
 media/upload_photos
 !media/take_photo/default.jpg
