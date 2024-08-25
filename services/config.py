@@ -1,3 +1,5 @@
+import os.path
+
 import yaml
 import logging
 
@@ -11,6 +13,8 @@ def load_logging(filename: str) -> None:
     :param filename: file with logs
     :return: None
     """
+    if not os.path.exists("logs/"):
+        os.mkdir("logs/")
     logging.basicConfig(filename=f'logs/{filename}.log', level=logging.INFO)
 
 

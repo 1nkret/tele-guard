@@ -35,7 +35,7 @@ async def handle_photo_upload(message: types.Message, state: FSMContext):
         file = await bot.get_file(file_id=photo_id)
         file_path = file.file_path
 
-        save_dir = f'media/upload_photos'
+        save_dir = f'media/upload_photos/'+chat_id
         os.makedirs(
             name=save_dir,
             exist_ok=True
