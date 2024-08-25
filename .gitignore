@@ -164,4 +164,4 @@ cython_debug/
 .idea
 media/take_photo
 media/upload_photos
-*media/take_photo/default.jpg
+!media/take_photo/default.jpg
