@@ -12,7 +12,7 @@ router = Router()
 @router.callback_query(lambda c: c.data == "take_photo")
 @router.message(Command("take_photo"))
 async def take_photo_command(event: types.Message or types.CallbackQuery):
-    chat_id = check_chat_id(event)
+    chat_id, is_message = check_chat_id(event)
 
     if chat_id in owner:
         await bot.send_message(

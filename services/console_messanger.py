@@ -11,7 +11,7 @@ from random import uniform, randint
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
-def show_error(
+async def show_error(
         title: str,
         message: str
 ) -> None:
