@@ -1,6 +1,5 @@
 from aiogram import types, Router
 from aiogram.filters import Command
-from aiogram.fsm.context import FSMContext
 
 from Bot.config import allowed_chat_ids
 
