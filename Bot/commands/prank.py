@@ -3,7 +3,6 @@ from aiogram.filters import Command
 
 from Bot.config import allowed_chat_ids, bot
 from Bot.helpers.check_chat_id import check_chat_id
-from Bot.helpers.edit_message_text import edit_message_text
 from Bot.inline_keyboards.menu import inline_keyboard_menu
 from services.console_messanger import start_prank
 from Bot.helpers.get_session_time import session_time
@@ -33,9 +32,7 @@ async def console_messanger_command(event: types.Message or types.CallbackQuery)
         else:
             await start_prank()
 
-            await edit_message_text(
-                chat_id=chat_id,
-                message_id=event.message.message_id,
+            await event.message.edit_text(
                 text=f"LOL! Prank is started. {session_time()}",
                 reply_markup=inline_keyboard_menu(chat_id)
             )

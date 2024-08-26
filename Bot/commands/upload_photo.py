@@ -7,13 +7,13 @@ from aiogram.fsm.context import FSMContext
 from Bot.config import allowed_chat_ids, bot
 from Bot.forms.PhotoUpload import PhotoUploadStates
 
-from Bot.helpers.edit_message_text import edit_message_text
 from Bot.helpers.check_chat_id import check_chat_id
 from Bot.helpers.open_image_fullscreen import open_image_fullscreen
 from Bot.helpers.get_session_time import session_time
 
 from Bot.inline_keyboards.upload_cancel import upload_cancel_keyboard
 from Bot.inline_keyboards.menu import inline_keyboard_menu
+
 
 router = Router()
 
@@ -26,7 +26,7 @@ async def upload_photo_to_monitor(event: types.CallbackQuery or types.Message, s
     if chat_id in allowed_chat_ids:
         if is_message:
             await state.set_state(PhotoUploadStates.waiting_for_photo)
-            await event.edit_text(
+            await event.message.answer(
                 text="Send your image (required 1920x1080 or 2K)",
                 reply_markup=upload_cancel_keyboard()
             )
@@ -58,34 +58,30 @@ async def handle_photo_upload(message: types.Message, state: FSMContext):
             destination=local_path
         )
 
-        await edit_message_text(
-            message_id=message.message_id,
-            chat_id=chat_id,
+        await message.answer(
             text=f"Successful. {session_time()}",
             reply_markup=inline_keyboard_menu(chat_id))
-        await message.delete()
         await state.clear()
 
         await open_image_fullscreen(image_path=local_path)
     else:
-        await edit_message_text(
-            message_id=message.message_id,
-            chat_id=chat_id,
+        await message.edit_text(
             text="This is not photo. Send your image (required 1920x1080 or 2K)",
             reply_markup=upload_cancel_keyboard())
-        await message.delete
+        await message.delete()
         await state.set_state(PhotoUploadStates.waiting_for_photo)
 
 
-@router.callback_query(StateFilter(PhotoUploadStates.waiting_for_photo), lambda c: c.data == "upload_cancel")
+@router.callback_query(lambda c: c.data == "upload_cancel")
 async def cancel_upload_photo(query: types.CallbackQuery, state: FSMContext):
-    chat_id = query.message.chat.id
+    chat_id = str(query.message.chat.id)
     current_state = await state.get_state()
 
-    if str(chat_id) in allowed_chat_ids and current_state:
+    if chat_id in allowed_chat_ids and current_state:
         await state.clear()
-        await bot.send_message(
-            chat_id=chat_id,
-            text="Canceled."
+        await query.message.answer(
+            text=f"Canceled. {session_time()}",
+            reply_markup=inline_keyboard_menu(chat_id)
         )
-        await query.answer()
+    elif not current_state:
+        await query.message.delete()

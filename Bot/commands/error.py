@@ -7,7 +7,6 @@ from Bot.forms.ErrorForm import ErrorForm
 
 from Bot.helpers.check_chat_id import check_chat_id
 from Bot.helpers.get_session_time import session_time
-from Bot.helpers.edit_message_text import edit_message_text
 
 from Bot.inline_keyboards.error_cancel import error_cancel_keyboard
 from Bot.inline_keyboards.menu import inline_keyboard_menu
@@ -31,9 +30,7 @@ async def error_command(event: types.Message or types.CallbackQuery, state: FSMC
             )
         else:
             await state.set_state(ErrorForm.title)
-            await edit_message_text(
-                chat_id=chat_id,
-                message_id=event.message.message_id,
+            await event.message.edit_text(
                 text="Title:",
                 reply_markup=error_cancel_keyboard()
             )
@@ -44,13 +41,10 @@ async def state_error_form_title(message: types.Message, state: FSMContext):
     await state.update_data(title=message.text)
     await state.set_state(ErrorForm.message)
 
-    await edit_message_text(
-        chat_id=message.chat.id,
-        message_id=message.message_id,
+    await message.answer(
         text=f"Now type message:",
         reply_markup=error_cancel_keyboard()
     )
-    await message.delete()
 
 
 @router.message(ErrorForm.message)
@@ -62,13 +56,10 @@ async def state_error_successful(message: types.Message, state: FSMContext):
     data = await state.get_data()
     chat_id = str(message.chat.id)
 
-    await edit_message_text(
-        message_id=message.message_id,
-        chat_id=chat_id,
+    await message.answer(
         text=f"Successful.{session_time()}",
         reply_markup=inline_keyboard_menu(chat_id)
     )
-    await message.delete()
     await state.clear()
 
     await show_error(
@@ -84,10 +75,10 @@ async def error_cancel(query: types.CallbackQuery, state: FSMContext):
 
     if str(chat_id) in owner and current_state:
         await state.clear()
-        await edit_message_text(
-            message_id=query.message.message_id,
-            chat_id=chat_id,
+        await query.message.answer(
             text=f"Canceled. {session_time()}",
             reply_markup=inline_keyboard_menu(chat_id)
         )
-        await query.answer()
+    elif not current_state:
+        await query.message.delete()
+

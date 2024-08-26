@@ -13,7 +13,8 @@ async def main():
         error_router,
         prank_router,
         takephoto_router,
-        uploadphoto_router
+        uploadphoto_router,
+        menu_router
     )
     await dp.start_polling(bot)
 
