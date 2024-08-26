@@ -1,5 +1,7 @@
 import asyncio
 
+from datetime import datetime
+
 from services.config import load_config, load_logging, logger
 from services.telegram_utils import is_telegram_open, close_telegram
 from services.notify import notify_windows
@@ -13,7 +15,7 @@ async def main():
     config = load_config()
     load_logging("blocker.logs")
 
-    config["locked"] = True
+    config["locked"], config["session_time"] = True, datetime.now()
     await message_start_session()
 
     while True:

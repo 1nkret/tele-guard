@@ -15,7 +15,7 @@ def load_logging(filename: str) -> None:
     """
     if not os.path.exists("logs/"):
         os.mkdir("logs/")
-    logging.basicConfig(filename=f'logs/{filename}.log', level=logging.INFO)
+    logging.basicConfig(filename=f'{filename}.log', level=logging.INFO)
 
 
 def load_config(path='config.yaml') -> yaml:

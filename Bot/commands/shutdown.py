@@ -12,7 +12,7 @@ router = Router()
 @router.callback_query(lambda c: c.data == "shutdown")
 @router.message(Command("shutdown"))
 async def handle_shutdown_command(event: types.Message or types.CallbackQuery):
-    chat_id = check_chat_id(event)
+    chat_id, is_message = check_chat_id(event)
 
     if chat_id in allowed_chat_ids:
         shutdown_os()
