@@ -1,6 +1,7 @@
 import asyncio
 
-from Bot.config import allowed_chat_ids, bot
+from Bot.config import bot
+from Bot.helpers.access import get_json_members
 
 
 async def send_message(text: str) -> None:
@@ -9,6 +10,6 @@ async def send_message(text: str) -> None:
     :param text: message
     :return: None
     """
-    for aci in allowed_chat_ids:
+    for aci in get_json_members():
         await bot.send_message(aci, text)
         await asyncio.sleep(0.1)

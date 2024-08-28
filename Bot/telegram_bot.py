@@ -14,7 +14,8 @@ async def main():
         prank_router,
         takephoto_router,
         uploadphoto_router,
-        menu_router
+        menu_router,
+        settings_router
     )
     await dp.start_polling(bot)
 

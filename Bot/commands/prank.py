@@ -1,8 +1,9 @@
 from aiogram import types, Router
 from aiogram.filters import Command
 
-from Bot.config import allowed_chat_ids, bot
+from Bot.config import bot
 from Bot.helpers.check_chat_id import check_chat_id
+from Bot.helpers.access import get_json_members
 from Bot.inline_keyboards.menu import inline_keyboard_menu
 from services.console_messanger import start_prank
 from Bot.helpers.get_session_time import session_time
@@ -16,7 +17,7 @@ router = Router()
 async def console_messanger_command(event: types.Message or types.CallbackQuery):
     chat_id, is_message = check_chat_id(event)
 
-    if chat_id in allowed_chat_ids:
+    if chat_id in get_json_members():
         if is_message:
             await bot.delete_message(
                 chat_id=chat_id,

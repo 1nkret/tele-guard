@@ -1,6 +1,6 @@
 from aiogram import types
 
-from Bot.config import owner
+from Bot.helpers.access import get_json_owners
 
 
 def inline_keyboard_menu(chat_id: str):
@@ -23,18 +23,27 @@ def inline_keyboard_menu(chat_id: str):
         ]
     ]
 
-    if chat_id in owner:
-        buttons.insert(1, [
-            types.InlineKeyboardButton(
-                text="Tape photo",
-                callback_data="take_photo"
-            ),
-            types.InlineKeyboardButton(
-                text="Error",
-                callback_data="error"
-            )
-        ]
-                       )
+    if chat_id in get_json_owners():
+        buttons.append(
+            [
+                types.InlineKeyboardButton(
+                    text="Tape photo",
+                    callback_data="take_photo"
+                ),
+                types.InlineKeyboardButton(
+                    text="Error",
+                    callback_data="error"
+                )
+            ]
+        )
+        buttons.append(
+            [
+                types.InlineKeyboardButton(
+                    text="Settings",
+                    callback_data="settings"
+                )
+            ]
+        )
 
     builder = types.InlineKeyboardMarkup(
         inline_keyboard=buttons
