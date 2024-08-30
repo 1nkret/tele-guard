@@ -1,10 +1,9 @@
 from aiogram import types, Router
 from aiogram.filters import Command
 
-from Bot.config import allowed_chat_ids
-
 from Bot.helpers.check_chat_id import check_chat_id
 from Bot.helpers.get_session_time import session_time
+from Bot.helpers.access import get_json_members
 
 from Bot.inline_keyboards.menu import inline_keyboard_menu
 
@@ -17,7 +16,7 @@ router = Router()
 async def upload_photo_to_monitor(event: types.CallbackQuery or types.Message):
     chat_id, is_message = check_chat_id(event)
 
-    if chat_id in allowed_chat_ids:
+    if chat_id in get_json_members():
         if is_message:
             await event.answer(
                 text=f"Main menu.{session_time()}",

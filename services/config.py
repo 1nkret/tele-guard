@@ -15,7 +15,7 @@ def load_logging(filename: str) -> None:
     """
     if not os.path.exists("logs/"):
         os.mkdir("logs/")
-    logging.basicConfig(filename=f'{filename}.log', level=logging.INFO)
+    logging.basicConfig(filename=f'logs/{filename}.log', level=logging.INFO)
 
 
 def load_config(path='config.yaml') -> yaml:
@@ -25,7 +25,13 @@ def load_config(path='config.yaml') -> yaml:
     :return: yaml
     """
     with open(path, 'r') as file:
-        return yaml.safe_load(file)
+        try:
+            cfg = yaml.safe_load(file)
+        except yaml.reader.ReaderError:
+            cfg = {}
+        if cfg is None:
+            return {}
+        return cfg
 
 
 def save_config(cfg, path='config.yaml') -> None:
