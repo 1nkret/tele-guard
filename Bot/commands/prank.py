@@ -4,9 +4,10 @@ from aiogram.filters import Command
 from Bot.config import bot
 from Bot.helpers.check_chat_id import check_chat_id
 from Bot.helpers.access import get_json_members
-from Bot.inline_keyboards.menu import inline_keyboard_menu
-from services.console_messanger import start_prank
 from Bot.helpers.get_session_time import session_time
+from Bot.inline_keyboards.menu import inline_keyboard_menu
+
+from services.console_messanger import start_prank
 
 
 router = Router()

@@ -2,13 +2,15 @@ from aiogram import types, Router
 from aiogram.filters import Command
 
 from Bot.config import bot
+
 from Bot.helpers.webcam import webcam
 from Bot.helpers.check_chat_id import check_chat_id
 from Bot.helpers.open_image_fullscreen import open_image_fullscreen
-from Bot.inline_keyboards.menu import inline_keyboard_menu
-from Bot.inline_keyboards.take_photo_end import upload_to_monitor
 from Bot.helpers.get_session_time import session_time
 from Bot.helpers.access import get_json_owners
+
+from Bot.inline_keyboards.menu import inline_keyboard_menu
+from Bot.inline_keyboards.take_photo_end import upload_to_monitor
 
 router = Router()
 

@@ -25,7 +25,13 @@ def load_config(path='config.yaml') -> yaml:
     :return: yaml
     """
     with open(path, 'r') as file:
-        return yaml.safe_load(file)
+        try:
+            cfg = yaml.safe_load(file)
+        except yaml.reader.ReaderError:
+            cfg = {}
+        if cfg is None:
+            return {}
+        return cfg
 
 
 def save_config(cfg, path='config.yaml') -> None:

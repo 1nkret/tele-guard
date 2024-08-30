@@ -37,13 +37,15 @@ def get_all_members() -> dict:
     return members
 
 
-def remove_member(chat_id: str) -> None:
+def remove_member(chat_id: str) -> bool:
     members = read_json()
 
     if chat_id in members:
         members.pop(chat_id)
         with open("members.json", "w") as file:
             json.dump(members, file, indent=4)
+        return True
+    return False
 
 
 def read_json(path: str = "members.json") -> dict:

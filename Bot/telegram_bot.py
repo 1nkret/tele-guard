@@ -3,6 +3,7 @@ import sys
 import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from aiogram.exceptions import TelegramNetworkError
 from config import dp, bot
 from commands import *
 
@@ -17,7 +18,13 @@ async def main():
         menu_router,
         settings_router
     )
-    await dp.start_polling(bot)
+    tries = 0
+    try:
+        await dp.start_polling(bot)
+        tries = 0
+    except TelegramNetworkError:
+        tries += 1
+        await asyncio.sleep(tries)
 
 
 if __name__ == '__main__':

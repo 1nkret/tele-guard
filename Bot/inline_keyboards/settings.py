@@ -34,12 +34,6 @@ def settings_access_menu():
         ],
         [
             types.InlineKeyboardButton(
-                text="EDIT",
-                callback_data="edit_member"
-            )
-        ],
-        [
-            types.InlineKeyboardButton(
                 text="BACK",
                 callback_data="settings"
             )

@@ -3,7 +3,7 @@ import asyncio
 from datetime import datetime
 from random import randint
 
-from services.config import load_config, load_logging, logger
+from services.config import load_config, load_logging, logger, save_config
 from services.telegram_utils import is_telegram_open, close_telegram
 from services.notify import notify_windows
 from services.sequence_checker import check_sequence
@@ -18,6 +18,7 @@ async def start():
     load_logging("blocker")
 
     config["locked"], config["session_time"] = True, datetime.now()
+    save_config(config)
     await message_start_session()
 
     while True:
