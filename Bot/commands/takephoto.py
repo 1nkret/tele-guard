@@ -9,7 +9,7 @@ from Bot.helpers.open_image_fullscreen import open_image_fullscreen
 from Bot.helpers.get_session_time import session_time
 from Bot.helpers.access import get_json_owners
 
-from Bot.inline_keyboards.menu import inline_keyboard_menu
+from Bot.inline_keyboards.menu import get_main_menu
 from Bot.inline_keyboards.take_photo_end import upload_to_monitor
 
 router = Router()
@@ -72,5 +72,5 @@ async def upload_photo_to_monitor(query: types.CallbackQuery):
         await open_image_fullscreen(image_path=query.data[len("upload_photo_"):])
         msg.edit_text(
             text=f"Successful.{session_time()}",
-            reply_markup=inline_keyboard_menu(chat_id)
+            reply_markup=get_main_menu(chat_id)
         )

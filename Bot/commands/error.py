@@ -9,7 +9,7 @@ from Bot.helpers.get_session_time import session_time
 from Bot.helpers.access import get_json_owners
 
 from Bot.inline_keyboards.error_cancel import error_cancel_keyboard
-from Bot.inline_keyboards.menu import inline_keyboard_menu
+from Bot.inline_keyboards.menu import get_main_menu
 
 from Bot.forms.ErrorForm import ErrorForm
 
@@ -60,7 +60,7 @@ async def state_error_successful(message: types.Message, state: FSMContext):
 
     await message.answer(
         text=f"Successful.{session_time()}",
-        reply_markup=inline_keyboard_menu(chat_id)
+        reply_markup=get_main_menu(chat_id)
     )
     await state.clear()
 
@@ -79,7 +79,7 @@ async def error_cancel(query: types.CallbackQuery, state: FSMContext):
         await state.clear()
         await query.message.answer(
             text=f"Canceled. {session_time()}",
-            reply_markup=inline_keyboard_menu(chat_id)
+            reply_markup=get_main_menu(chat_id)
         )
     elif not current_state:
         await query.message.delete()

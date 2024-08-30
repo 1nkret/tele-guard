@@ -13,7 +13,7 @@ from Bot.helpers.get_session_time import session_time
 from Bot.helpers.access import get_json_members
 
 from Bot.inline_keyboards.upload_cancel import upload_cancel_keyboard
-from Bot.inline_keyboards.menu import inline_keyboard_menu
+from Bot.inline_keyboards.menu import get_main_menu
 
 
 router = Router()
@@ -74,7 +74,7 @@ async def handle_photo_upload(message: types.Message, state: FSMContext):
 
     await message.answer(
         text=f"Successful. {session_time()}",
-        reply_markup=inline_keyboard_menu(chat_id))
+        reply_markup=get_main_menu(chat_id))
     await state.clear()
 
     await open_image_fullscreen(image_path=local_path)
@@ -89,7 +89,7 @@ async def cancel_upload_photo(query: types.CallbackQuery, state: FSMContext):
         await state.clear()
         await query.message.answer(
             text=f"Canceled. {session_time()}",
-            reply_markup=inline_keyboard_menu(chat_id)
+            reply_markup=get_main_menu(chat_id)
         )
     elif not current_state:
         await query.message.delete()
