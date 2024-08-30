@@ -5,8 +5,6 @@ import os
 
 async def prop_frame(
         id_cam: int = 0,
-        x: int = 1920,
-        y: int = 1080
 ):
     """
     Configure your webcam
@@ -16,8 +14,6 @@ async def prop_frame(
     :return: VideoCapture
     """
     cap = cv2.VideoCapture(id_cam)
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, x)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, y)
 
     return cap
 

@@ -1,4 +1,5 @@
 import json
+from os import getenv
 
 
 def add_new_member(
@@ -90,8 +91,9 @@ def get_json_members() -> list:
 
 def get_json_owners() -> list:
     temp = read_json()
+    root = getenv("OWNER")
 
-    owner_list = []
+    owner_list = [root]
     for key in temp.keys():
         if temp[key]["group"] == "owner":
             owner_list.append(key)
