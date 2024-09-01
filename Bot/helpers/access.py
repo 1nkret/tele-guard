@@ -1,5 +1,6 @@
 import json
 from os import getenv
+from Bot.config import logger
 
 
 def add_new_member(
@@ -16,13 +17,16 @@ def add_new_member(
         with open("members.json", "r") as file:
             content = file.read().strip()
             members = json.loads(content) if content else {}
+            logger.info("members.json is successful loaded.")
     except FileNotFoundError:
+        logger.warning("File members.json not found.")
         members = {}
 
     members[chat_id] = new_member
 
     with open("members.json", "w") as file:
         json.dump(members, file, indent=4)
+        logger.info("Updated data in json (new user)")
 
 
 def get_all_members() -> dict:
@@ -30,9 +34,12 @@ def get_all_members() -> dict:
         with open("members.json", "r") as file:
             content = file.read().strip()
             members = json.loads(content) if content else {}
+            logger.info("members.json are successful loaded and returned.")
     except FileNotFoundError:
         members = {}
+        logger.warning("File members.json not found")
     except ValueError:
+        logger.warning("Value error")
         members = {}
 
     return members
@@ -45,6 +52,7 @@ def remove_member(chat_id: str) -> bool:
         members.pop(chat_id)
         with open("members.json", "w") as file:
             json.dump(members, file, indent=4)
+            logger.info("Remove member from json")
         return True
     return False
 
@@ -54,8 +62,10 @@ def read_json(path: str = "members.json") -> dict:
         with open(path, "r") as file:
             content = file.read().strip()
             members = json.loads(content) if content else {}
+            logger.info("JSON is successful loaded.")
     except FileNotFoundError:
         members = {}
+        logger.warning("JSON is not found")
 
     return members
 
@@ -63,6 +73,7 @@ def read_json(path: str = "members.json") -> dict:
 def create_json(path: str = "members.json") -> None:
     with open(path, "w") as file:
         json.dump({}, file)
+        logger.info("new json: "+path)
 
 
 def get_str_members() -> str:

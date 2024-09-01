@@ -1,9 +1,6 @@
 import psutil
-import logging
 
-from services.config import save_config
-
-logger = logging.getLogger(__name__)
+from services.config import save_config, logger
 
 
 def is_telegram_open() -> bool:
@@ -26,14 +23,15 @@ def close_telegram(config) -> None:
     :return: None
     """
     try:
-        telegram_process = next((proc for proc in psutil.process_iter(['pid', 'name']) if proc.info['name'] == 'Telegram.exe'), None)
+        telegram_process = next(
+            (proc for proc in psutil.process_iter(['pid', 'name']) if proc.info['name'] == 'Telegram.exe'), None)
         if telegram_process:
             telegram_process.terminate()
             telegram_process.wait()
             config["exit_count"] += 1
             save_config(config)
-            logger.info(f'Процесс Telegram (PID {telegram_process.pid}) завершен.')
+            logger.info(f'Process Telegram (PID {telegram_process.pid}) is shutdown.')
         else:
-            logger.info('Процесс Telegram не найден.')
+            logger.info('Process Telegram not found.')
     except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess) as e:
-        logger.warning(f'Не удалось завершить процесс Telegram: {e}')
+        logger.warning(f'Cant shutdown process Telegram: {e}')
