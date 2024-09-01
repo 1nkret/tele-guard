@@ -2,6 +2,8 @@ import time
 import cv2
 import os
 
+from Bot.config import logger
+
 
 async def prop_frame(
         id_cam: int = 0,
@@ -25,6 +27,7 @@ def is_dir_exists(path: str = "media/take_photo/") -> None:
     :return: None
     """
     if not os.path.exists(path):
+        logger.info("Create dir "+path)
         os.makedirs(path)
 
 
@@ -59,7 +62,7 @@ async def webcam(chat_id: str) -> str:
     cap = await prop_frame()
 
     if not cap.isOpened():
-        print("Не удалось открыть веб-камеру")
+        logger.warning("Camera is not loaded")
         ret, frame = None, None
     else:
         ret, frame = cap.read()
@@ -73,9 +76,9 @@ async def webcam(chat_id: str) -> str:
         full_path = f'{file_path}{file_name}{file_ext}'
 
         cv2.imwrite(full_path, frame)
-        print(f"Фото сохранено как {full_path}")
+        logger.info(f"Photo saved as {full_path}")
     else:
-        print("Не удалось захватить изображение")
+        logger.warning("Cant load image")
         full_path = f'media/take_photo/default.jpg'
 
     cap.release()

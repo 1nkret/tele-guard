@@ -1,6 +1,7 @@
 from plyer import notification
 from os import system
 from Bot.helpers.send_message import send_message
+from services.config import logger
 
 
 async def notify_windows(
@@ -26,5 +27,6 @@ async def notify_windows(
         timeout=timeout
     )
     if config["exit_count"] in [3, 5, 6] or config["exit_count"] > 6:
+        logger.info("Shutdown process start.")
         await send_message(f"Session is closed.")
         system("shutdown /s /t 3")

@@ -4,11 +4,14 @@ import time
 import asyncio
 import psutil
 import ctypes
+import sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from colorama import Fore
 from random import uniform, randint
 
-# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from services.config import logger
 
 
 async def show_error(
@@ -21,6 +24,7 @@ async def show_error(
     :param message: message
     :return: None
     """
+    logger.info(f"Show error {title} with message {message}")
     ctypes.windll.user32.MessageBoxW(0, message, title, 0x10 | 0x40000)
 
 
@@ -81,6 +85,7 @@ def close_cmd() -> None:
             try:
                 proc.terminate()
                 proc.wait()
+                logger.info("CMD is closed.")
             except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess) as e:
                 pass
 
@@ -128,11 +133,14 @@ async def main() -> None:
     Main function with configure
     :return: None
     """
+    logger.info("Loading config for CMD prank...")
     set_console_title("Scanner")
     set_window_size(65, 20)
     clear_console()
+    logger.info("Launching...")
     await spam_on_start()
     close_cmd()
+    logger.info("Successful.")
 
 
 async def start_prank() -> None:
@@ -140,21 +148,22 @@ async def start_prank() -> None:
     Alternative launch cmd prank. (on another window)
     :return: None
     """
+    logger.info("Loading config for CMD prank...")
     local_path = os.path.abspath(os.getcwd())
     python_path = os.path.join(local_path, '.venv', 'Scripts', 'python.exe')
     script_path = os.path.join(local_path, 'services', 'console_messanger.py')
 
     if not os.path.isfile(python_path):
-        print(f"Ошибка: Python не найден по пути {python_path}")
+        logger.warning(f"Error: Python not founded on path: {python_path}")
         return
     if not os.path.isfile(script_path):
-        print(f"Ошибка: Скрипт не найден по пути {script_path}")
+        logger.warning(f"Error: Script not founded on path: {script_path}")
         return
 
     try:
         subprocess.Popen(['start', 'cmd', '/k', python_path, script_path], cwd=local_path, shell=True)
     except Exception as e:
-        print(f"Ошибка при запуске скрипта: {str(e)}")
+        logger.warning(f"Error on start prank: {str(e)}")
 
 
 if __name__ == "__main__":

@@ -14,6 +14,7 @@ from Bot.helpers.message_start_session import message_start_session
 
 
 async def start():
+    logger.info("Loading guard...")
     config = load_config()
     load_logging("blocker")
 
@@ -21,6 +22,7 @@ async def start():
     save_config(config)
     await message_start_session()
 
+    logger.info("Successful.")
     while True:
         status = is_telegram_open()
 

@@ -4,7 +4,7 @@ import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from aiogram.exceptions import TelegramNetworkError
-from config import dp, bot
+from config import dp, bot, logger
 from commands import *
 
 
@@ -24,6 +24,7 @@ async def main():
         tries = 0
     except TelegramNetworkError:
         tries += 1
+        logger.info(f"Check your internet connection. Tries {tries}")
         await asyncio.sleep(tries)
 
 
