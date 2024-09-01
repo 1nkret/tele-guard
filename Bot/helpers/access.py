@@ -88,7 +88,7 @@ def get_str_members() -> str:
     return text
 
 
-def get_json_members() -> list:
+def get_from_json_members() -> list:
     temp = read_json()
 
     member_list = []
@@ -100,7 +100,7 @@ def get_json_members() -> list:
     return member_list
 
 
-def get_json_owners() -> list:
+def get_from_json_owners() -> list:
     temp = read_json()
     root = getenv("OWNER")
 

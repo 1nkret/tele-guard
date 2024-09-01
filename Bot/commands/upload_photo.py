@@ -10,7 +10,7 @@ from Bot.forms.PhotoUpload import PhotoUploadStates
 from Bot.helpers.check_chat_id import check_chat_id
 from Bot.helpers.open_image_fullscreen import open_image_fullscreen
 from Bot.helpers.get_session_time import session_time
-from Bot.helpers.access import get_json_members
+from Bot.helpers.access import get_from_json_members
 
 from Bot.inline_keyboards.upload_cancel import upload_cancel_keyboard
 from Bot.inline_keyboards.menu import get_main_menu
@@ -24,7 +24,7 @@ router = Router()
 async def upload_photo_to_monitor(event: types.CallbackQuery or types.Message, state: FSMContext):
     chat_id, is_message = check_chat_id(event)
 
-    if chat_id in get_json_members():
+    if chat_id in get_from_json_members():
         if is_message:
             await state.set_state(PhotoUploadStates.waiting_for_photo)
             await event.message.answer(
@@ -85,7 +85,7 @@ async def cancel_upload_photo(query: types.CallbackQuery, state: FSMContext):
     chat_id = str(query.message.chat.id)
     current_state = await state.get_state()
 
-    if chat_id in get_json_members() and current_state:
+    if chat_id in get_from_json_members() and current_state:
         await state.clear()
         await query.message.answer(
             text=f"Canceled. {session_time()}",

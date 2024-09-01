@@ -6,7 +6,7 @@ from Bot.config import bot
 
 from Bot.helpers.check_chat_id import check_chat_id
 from Bot.helpers.get_session_time import session_time
-from Bot.helpers.access import get_json_owners
+from Bot.helpers.access import get_from_json_owners
 
 from Bot.inline_keyboards.error_cancel import error_cancel_keyboard
 from Bot.inline_keyboards.menu import get_main_menu
@@ -22,7 +22,7 @@ router = Router()
 async def error_command(event: types.Message or types.CallbackQuery, state: FSMContext):
     chat_id, is_message = check_chat_id(event)
 
-    if chat_id in get_json_owners():
+    if chat_id in get_from_json_owners():
         if is_message:
             await state.set_state(ErrorForm.title)
             await bot.send_message(
@@ -75,7 +75,7 @@ async def error_cancel(query: types.CallbackQuery, state: FSMContext):
     chat_id = str(query.message.chat.id)
     current_state = await state.get_state()
 
-    if str(chat_id) in get_json_owners() and current_state:
+    if str(chat_id) in get_from_json_owners() and current_state:
         await state.clear()
         await query.message.answer(
             text=f"Canceled. {session_time()}",

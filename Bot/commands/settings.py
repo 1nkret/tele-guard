@@ -4,7 +4,7 @@ from aiogram.fsm.context import FSMContext
 
 from Bot.helpers.check_chat_id import check_chat_id
 from Bot.helpers.access import *
-from Bot.helpers.access import get_json_owners
+from Bot.helpers.access import get_from_json_owners
 
 from Bot.forms.AddNewMember import AddNewMember
 from Bot.forms.RemoveMember import RemoveMember
@@ -19,7 +19,7 @@ router = Router()
 async def settings_command(event: types.Message or types.CallbackQuery):
     chat_id, is_message = check_chat_id(event)
 
-    if chat_id in get_json_owners():
+    if chat_id in get_from_json_owners():
         if is_message:
             await event.answer(
                 text="Settings menu",

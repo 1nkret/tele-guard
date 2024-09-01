@@ -3,7 +3,7 @@ import asyncio
 from aiogram.exceptions import TelegramNetworkError
 from Bot.config import bot, logger
 from Bot.inline_keyboards.menu import get_main_menu
-from Bot.helpers.access import get_json_members
+from Bot.helpers.access import get_from_json_members
 
 
 async def message_start_session() -> None:
@@ -14,7 +14,7 @@ async def message_start_session() -> None:
     tries = 0
 
     try:
-        for aci in get_json_members():
+        for aci in get_from_json_members():
             await bot.send_message(
                 chat_id=aci,
                 text="Session is started.",

@@ -5,7 +5,7 @@ from typing import Union
 
 from Bot.helpers.check_chat_id import check_chat_id
 from Bot.helpers.get_session_time import session_time
-from Bot.helpers.access import get_json_members
+from Bot.helpers.access import get_from_json_members
 
 from Bot.inline_keyboards.menu import (
     get_main_menu,
@@ -22,7 +22,7 @@ router = Router()
 async def handle_menu(event: Union[types.CallbackQuery, types.Message]):
     chat_id, is_message = check_chat_id(event)
 
-    if chat_id in get_json_members():
+    if chat_id in get_from_json_members():
         text = f"Main menu. {session_time()}"
 
         if is_message:
@@ -41,7 +41,7 @@ async def handle_menu(event: Union[types.CallbackQuery, types.Message]):
 async def handle_back_to_menu(event: Union[types.CallbackQuery, types.Message]):
     chat_id, is_message = check_chat_id(event)
 
-    if chat_id in get_json_members():
+    if chat_id in get_from_json_members():
         text = f"Main menu. {session_time()}"
 
         try:

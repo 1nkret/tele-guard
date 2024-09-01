@@ -1,5 +1,5 @@
 from aiogram import types
-from Bot.helpers.access import get_json_owners
+from Bot.helpers.access import get_from_json_owners
 
 
 def get_main_menu(chat_id: str):
@@ -9,7 +9,7 @@ def get_main_menu(chat_id: str):
             types.InlineKeyboardButton(text="Photo Options", callback_data="photo_options")
         ]
     ]
-    if chat_id in get_json_owners():
+    if chat_id in get_from_json_owners():
         buttons.append([types.InlineKeyboardButton(text="Admin Options", callback_data="admin_options")])
 
     return types.InlineKeyboardMarkup(inline_keyboard=buttons)
@@ -34,7 +34,7 @@ def get_photo_options_page(
             {"text": "Upload photo", "callback_data": "upload_photo"}
         ]
     ]
-    if chat_id in get_json_owners():
+    if chat_id in get_from_json_owners():
         functions[0].append(
             {"text": "Tape photo", "callback_data": "take_photo"}
         )
