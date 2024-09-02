@@ -31,7 +31,7 @@ def paginate_buttons(
     if page > 1:
         navigation_buttons.append(
             types.InlineKeyboardButton(
-                text="Previous",
+                text="⬅️",
                 callback_data=f"prev_page_{page - 1}")
         )
     navigation_buttons.append(
@@ -43,7 +43,7 @@ def paginate_buttons(
     if end_index < len(buttons):
         navigation_buttons.append(
             types.InlineKeyboardButton(
-                text="Next",
+                text="➡️",
                 callback_data=f"next_page_{page + 1}"
             )
         )

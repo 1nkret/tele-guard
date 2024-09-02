@@ -61,3 +61,4 @@ async def settings_access_manage_profile_whitelist(event: types.CallbackQuery):
     await event.message.edit_reply_markup(
         reply_markup=in_kb_settings_access_manage_profile(user_id, new_status)
     )
+    await event.answer()

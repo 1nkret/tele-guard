@@ -8,17 +8,17 @@ def in_kb_settings_access_manage_profile(
     buttons = [
         [
             types.InlineKeyboardButton(
-                text="Whitelist [✓]" if whitelist else "Whitelist [X]",
+                text="[✓] Whitelist" if whitelist else "[X] Whitelist",
                 callback_data="settings_profile_whitelist_switch_"+user_id
             ),
             types.InlineKeyboardButton(
-                text='Remove',
+                text='❌ Remove',
                 callback_data='settings_access_manage_remove_from_members_' + user_id
             )
         ],
         [
             types.InlineKeyboardButton(
-                text='Back',
+                text='↩️',
                 callback_data='settings_access'
             )
         ]
@@ -31,11 +31,11 @@ def in_kb_settings_access_manage_remove_member(user_id: str):
     buttons = [
         [
             types.InlineKeyboardButton(
-                text="Cancel",
+                text="❌ Cancel ❌",
                 callback_data="settings_access_manage_"+user_id
             ),
             types.InlineKeyboardButton(
-                text="Confirm",
+                text="✅ Confirm ✅",
                 callback_data="settings_access_manage_remove_from_members_confirm_"+user_id
             )
         ]

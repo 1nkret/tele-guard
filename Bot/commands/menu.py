@@ -16,6 +16,7 @@ router = Router()
 
 @router.callback_query(lambda c: c.data == "menu")
 @router.message(Command("menu"))
+@router.message(Command("start"))
 async def handle_menu(event: Union[types.CallbackQuery, types.Message]):
     chat_id, is_message = check_chat_id(event)
 

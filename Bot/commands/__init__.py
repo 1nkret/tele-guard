@@ -7,4 +7,3 @@ from .menu import router as menu_router
 from .settings import router as settings_router
 from .profile import router as profile_router
 from .paginator import router as paginator_router
-from .storage import router as storage_router
