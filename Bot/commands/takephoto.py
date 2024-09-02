@@ -20,7 +20,7 @@ router = Router()
 async def take_photo_command(event: types.Message or types.CallbackQuery):
     chat_id, is_message = check_chat_id(event)
 
-    if is_blocked:
+    if is_blocked():
         if not is_whitelisted(chat_id):
             await bot.send_message(
                 chat_id=chat_id,
@@ -74,7 +74,7 @@ async def take_photo_command(event: types.Message or types.CallbackQuery):
 async def upload_photo_to_monitor(query: types.CallbackQuery):
     chat_id, is_message = check_chat_id(query)
 
-    if is_blocked:
+    if is_blocked():
         if not is_whitelisted(chat_id):
             await bot.send_message(
                 chat_id=chat_id,

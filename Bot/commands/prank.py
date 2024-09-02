@@ -18,7 +18,7 @@ router = Router()
 async def console_messanger_command(event: types.Message or types.CallbackQuery):
     chat_id, is_message = check_chat_id(event)
 
-    if is_blocked:
+    if is_blocked():
         if not is_whitelisted(chat_id):
             await bot.send_message(
                 chat_id=chat_id,
