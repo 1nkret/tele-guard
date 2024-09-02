@@ -1,6 +1,5 @@
 from aiogram import Router, types
 from aiogram.filters import Command
-from aiogram.types import InlineKeyboardMarkup
 
 from Bot.helpers.check_chat_id import check_chat_id
 from Bot.helpers.access import get_from_json_owners
