@@ -24,14 +24,13 @@ async def settings_access_manage_profile(event: types.CallbackQuery):
                 f"{val['name']}:\n\n"
                 f"ID - {key},\n"
                 f"GROUP - {val['group'].capitalize()},\n"
-                f"WHITELIST - {val['whitelist']}"
             )
     else:
         text = f"No member found with ID: {user_id}"
 
     await event.message.edit_text(
         text=text,
-        reply_markup=in_kb_settings_access_manage_profile(user_id)
+        reply_markup=in_kb_settings_access_manage_profile(user_id, member.get("whitelist", False))
     )
 
 
@@ -50,3 +49,15 @@ async def settings_access_manage_profile_remove(event: types.CallbackQuery):
             text=f"Confirm deletion ({user_id})",
             reply_markup=in_kb_settings_access_manage_remove_member(user_id)
         )
+
+
+@router.callback_query(lambda c: c.data.startswith("settings_profile_whitelist_switch_"))
+async def settings_access_manage_profile_whitelist(event: types.CallbackQuery):
+    user_id = event.data[len("settings_profile_whitelist_switch_"):]
+    status = read_json().get(user_id, {}).get("whitelist", False)
+    new_status = False if status else True
+    change_status_whitelisted(user_id, new_status)
+
+    await event.message.edit_reply_markup(
+        reply_markup=in_kb_settings_access_manage_profile(user_id, new_status)
+    )

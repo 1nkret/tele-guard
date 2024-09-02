@@ -1,6 +1,7 @@
 from aiogram import types, Router
 
 from Bot.helpers.get_session_time import session_time
+from Bot.helpers.access import focus_mode_immunity
 from Bot.inline_keyboards.menu import get_main_functions_page, get_photo_options_page, get_admin_options_page
 from Bot.inline_keyboards.settings import settings_access_menu
 
@@ -15,18 +16,18 @@ async def paginator_handle_callback(event: types.CallbackQuery):
 
     if data == "main_functions":
         await event.message.edit_text(
-            text="Main Functions"+session_time(),
-            reply_markup=get_main_functions_page()
+            text=f"Main Functions  {focus_mode_immunity(chat_id)}{session_time()}",
+            reply_markup=get_main_functions_page(),
         )
     elif data == "photo_options":
         await event.message.edit_text(
-            text="Photo Options"+session_time(),
-            reply_markup=get_photo_options_page(chat_id)
+            text=f"Photo Options  {focus_mode_immunity(chat_id)}{session_time()}",
+            reply_markup=get_photo_options_page(chat_id),
         )
     elif data == "admin_options":
         await event.message.edit_text(
-            text="Admin Options"+session_time(),
-            reply_markup=get_admin_options_page()
+            text=f"Admin Options  {focus_mode_immunity(chat_id)}{session_time()}",
+            reply_markup=get_admin_options_page(),
         )
     elif data.startswith("prev_page_") or data.startswith("next_page_"):
         _, page = data.rsplit("_", 1)

@@ -4,9 +4,11 @@ import asyncio
 from services.config import logger
 
 
-def open_image_fullscreen_sync(image_path: str) -> None:
+def open_image_fullscreen_sync(
+        image_path: str,
+        title: str) -> None:
     root = tk.Tk()
-    root.title("Fullscreen Image Viewer")
+    root.title(title)
 
     logger.info("Start loading image viewer...")
     image = Image.open(image_path)
@@ -29,6 +31,9 @@ def open_image_fullscreen_sync(image_path: str) -> None:
     logger.info("Image is loaded.")
 
 
-async def open_image_fullscreen(image_path: str) -> None:
+async def open_image_fullscreen(
+        image_path: str,
+        title: str = "Fullscreen Image Viewer"
+) -> None:
     loop = asyncio.get_running_loop()
-    await loop.run_in_executor(None, open_image_fullscreen_sync, image_path)
+    await loop.run_in_executor(None, open_image_fullscreen_sync, image_path, title)

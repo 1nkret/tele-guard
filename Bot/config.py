@@ -9,6 +9,7 @@ from services.config import load_config
 
 load_dotenv()
 API_TOKEN = getenv("API_TOKEN")
+owner_url = getenv("OWNER_TELEGRAM_URL")
 
 logging.basicConfig(filename="logs/bot.log", level=logging.INFO)
 logger = logging.getLogger(__name__)

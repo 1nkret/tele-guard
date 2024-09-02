@@ -10,7 +10,8 @@ def add_new_member(
 ) -> None:
     new_member = {
         "name": name,
-        "group": group
+        "group": group,
+        "whitelist": False
     }
 
     try:
@@ -26,7 +27,7 @@ def add_new_member(
 
     with open("members.json", "w") as file:
         json.dump(members, file, indent=4)
-        logger.info("Updated data in json (new user)")
+        logger.info("Updated data in json (new user).")
 
 
 def remove_member(chat_id: str) -> bool:
@@ -36,7 +37,7 @@ def remove_member(chat_id: str) -> bool:
         members.pop(chat_id)
         with open("members.json", "w") as file:
             json.dump(members, file, indent=4)
-            logger.info("Remove member from json")
+            logger.info("Remove member from json.")
         return True
     return False
 
@@ -56,12 +57,13 @@ def read_json(path: str = "members.json") -> dict:
 
 def create_json(path: str = "members.json") -> None:
     with open(path, "w") as file:
-        json.dump({}, file)
+        json.dump({}, file, indent=4)
         logger.info("new json: "+path)
 
 
 def get_from_json_members() -> list:
     temp = read_json()
+    logger.info("Getting from json list with id`s members.")
 
     member_list = []
     for key in temp.keys():
@@ -75,6 +77,7 @@ def get_from_json_members() -> list:
 def get_from_json_owners() -> list:
     temp = read_json()
     root = getenv("OWNER")
+    logger.info("Getting from json list with id`s owners.")
 
     owner_list = [root]
     for key in temp.keys():
@@ -84,16 +87,49 @@ def get_from_json_owners() -> list:
     return owner_list
 
 
-def is_blocked(chat_id: str):
-    members = read_json()
-    return members.get(chat_id, {}).get("blocked", False)
+def is_blocked():
+    members = read_json("settings.json")
+    logger.info("Checking focus mode.")
+
+    return members.get("blocked", False)
+
+
+def change_status_blocked(status: bool):
+    members = read_json("settings.json")
+    members["blocked"] = status
+    logger.info(f"Changing focus mode to {status}.")
+
+    with open("settings.json", "w") as file:
+        json.dump(members, file, indent=4)
 
 
 def is_whitelisted(chat_id: str):
     members = read_json()
-    return members.get(chat_id, {}).get("whitelist", False)
+    logger.info(f"Checking is {chat_id} in whitelist...")
+    is_owner = members.get(chat_id, {})["group"] == "owner"
+
+    return True if is_owner else members.get(chat_id, {}).get("whitelist", False)
+
+
+def change_status_whitelisted(
+        chat_id: str,
+        status: bool
+):
+    members = read_json()
+    members[chat_id]["whitelist"] = status
+    logger.info(f"Changing whitelist status {chat_id} to {status}")
+
+    with open("members.json", "w") as file:
+        json.dump(members, file, indent=4)
 
 
 def get_member(chat_id: str) -> dict:
     members = read_json()
     return {chat_id: members[chat_id]} if chat_id in members else None
+
+
+def focus_mode_immunity(chat_id: str) -> str:
+    if is_whitelisted(chat_id) and is_blocked():
+        return "🌙"
+    else:
+        return str()

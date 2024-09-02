@@ -6,7 +6,6 @@ from Bot.helpers.check_chat_id import check_chat_id
 from Bot.helpers.access import *
 
 from Bot.forms.AddNewMember import AddNewMember
-from Bot.forms.RemoveMember import RemoveMember
 
 from Bot.inline_keyboards.settings import *
 
@@ -100,3 +99,13 @@ async def settings_access_cancel(event: types.CallbackQuery, state: FSMContext):
         text="Access manager\n\nCanceled.\n",
         reply_markup=settings_access_menu()
         )
+
+
+@router.callback_query(lambda c: c.data == "settings_focus_mode_switch")
+async def settings_focus_mode(event: types.CallbackQuery):
+    status = read_json("settings.json").get("blocked", False)
+
+    change_status_blocked(False if status else True)
+    await event.message.edit_reply_markup(
+        reply_markup=settings_menu()
+    )

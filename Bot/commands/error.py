@@ -2,11 +2,11 @@ from aiogram import types, Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 
-from Bot.config import bot
+from Bot.config import bot, owner_url
 
 from Bot.helpers.check_chat_id import check_chat_id
 from Bot.helpers.get_session_time import session_time
-from Bot.helpers.access import get_from_json_owners
+from Bot.helpers.access import get_from_json_owners, is_blocked, is_whitelisted, focus_mode_immunity
 
 from Bot.inline_keyboards.error_cancel import error_cancel_keyboard
 from Bot.inline_keyboards.menu import get_main_menu
@@ -22,6 +22,15 @@ router = Router()
 async def error_command(event: types.Message or types.CallbackQuery, state: FSMContext):
     chat_id, is_message = check_chat_id(event)
 
+    if is_blocked:
+        if not is_whitelisted(chat_id):
+            await bot.send_message(
+                chat_id=chat_id,
+                text=f"🌙  <b>Focus Mode</b> is enabled. Please contact the <a href='{owner_url}'>administrator "
+                     "for access</a>.",
+                parse_mode="HTML"
+            )
+            return
     if chat_id in get_from_json_owners():
         if is_message:
             await state.set_state(ErrorForm.title)
@@ -59,7 +68,7 @@ async def state_error_successful(message: types.Message, state: FSMContext):
     chat_id = str(message.chat.id)
 
     await message.answer(
-        text=f"Successful.{session_time()}",
+        text=f"Successful. {focus_mode_immunity(chat_id)}{session_time()}",
         reply_markup=get_main_menu(chat_id)
     )
     await state.clear()
@@ -78,7 +87,7 @@ async def error_cancel(query: types.CallbackQuery, state: FSMContext):
     if str(chat_id) in get_from_json_owners() and current_state:
         await state.clear()
         await query.message.answer(
-            text=f"Canceled. {session_time()}",
+            text=f"Canceled. {focus_mode_immunity(chat_id)}{session_time()}",
             reply_markup=get_main_menu(chat_id)
         )
     elif not current_state:
