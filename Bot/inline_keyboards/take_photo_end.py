@@ -5,13 +5,13 @@ def upload_to_monitor(file_path: str) -> types.InlineKeyboardMarkup:
     buttons = [
                 [
                     types.InlineKeyboardButton(
-                        text="UPLOAD TO MONITOR",
+                        text="🖥 UPLOAD TO MONITOR 🖥",
                         callback_data="upload_photo_" + file_path
                     )
                 ],
                 [
                     types.InlineKeyboardButton(
-                        text="BACK TO MENU",
+                        text="🏠 Home 🏠",
                         callback_data="menu"
                     )
                 ]

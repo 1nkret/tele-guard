@@ -5,7 +5,7 @@ def error_cancel_keyboard():
     return InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                InlineKeyboardButton(text="Cancel",
+                InlineKeyboardButton(text="❌ Cancel ❌",
                                      callback_data="error_cancel")
             ]
         ]

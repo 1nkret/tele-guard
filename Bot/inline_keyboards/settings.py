@@ -10,17 +10,17 @@ def settings_menu():
     buttons = [
         [
             types.InlineKeyboardButton(
-                text="Access",
+                text="🔐 Access",
                 callback_data="settings_access"
             ),
             types.InlineKeyboardButton(
-                text="Focus [✓]" if status else "Focus [X]",
+                text="[✓] Focus" if status else "[X] Focus",
                 callback_data="settings_focus_mode_switch"
             )
         ],
         [
             types.InlineKeyboardButton(
-                text="Back to menu",
+                text="🏠 Home 🏠",
                 callback_data="menu"
             )
         ]
@@ -45,7 +45,7 @@ def settings_access_menu(page=1):
         page=page,
         back_callback_data="settings",
         buttons_per_page=2,
-        add_button={"text": "ADD", "callback_data": "add_new_member"}
+        add_button={"text": "📝 ADD", "callback_data": "add_new_member"}
     )
 
     return markup
@@ -56,7 +56,7 @@ def settings_cancel_access():
         inline_keyboard=[
             [
                 types.InlineKeyboardButton(
-                    text="Cancel",
+                    text="❌ Cancel ❌",
                     callback_data="settings_access_cancel"
                 )
             ]
@@ -68,11 +68,11 @@ def settings_choose_group():
     buttons = [
         [
             types.InlineKeyboardButton(
-                text="Owner",
+                text="👑 Owner",
                 callback_data="access_choose_group_owner"
             ),
             types.InlineKeyboardButton(
-                text="Member",
+                text="👤 Member",
                 callback_data="access_choose_group_member"
             )
         ]
