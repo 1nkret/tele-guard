@@ -5,3 +5,5 @@ from .takephoto import router as takephoto_router
 from .upload_photo import router as uploadphoto_router
 from .menu import router as menu_router
 from .settings import router as settings_router
+from .profile import router as profile_router
+from .paginator import router as paginator_router

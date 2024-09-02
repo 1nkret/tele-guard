@@ -4,7 +4,6 @@ from aiogram.fsm.context import FSMContext
 
 from Bot.helpers.check_chat_id import check_chat_id
 from Bot.helpers.access import *
-from Bot.helpers.access import get_from_json_owners
 
 from Bot.forms.AddNewMember import AddNewMember
 from Bot.forms.RemoveMember import RemoveMember
@@ -34,10 +33,8 @@ async def settings_command(event: types.Message or types.CallbackQuery):
 
 @router.callback_query(lambda c: c.data == "settings_access")
 async def settings_access(event: types.CallbackQuery):
-    text = get_str_members()
-
     await event.message.edit_text(
-        text=text,
+        text="Access manager",
         reply_markup=settings_access_menu()
     )
 
@@ -89,49 +86,17 @@ async def settings_access_add_new_member_done(event: types.CallbackQuery, state:
     )
 
     await event.message.answer(
-        text="New member added.\n"+get_str_members(),
+        text="Access manager\n\nNew member added.",
         reply_markup=settings_access_menu()
     )
 
     await state.clear()
 
 
-@router.callback_query(lambda c: c.data == "remove_member")
-async def settings_access_remove_member(event: types.CallbackQuery, state: FSMContext):
-    await state.set_state(RemoveMember.chat_id)
-    await event.message.answer(
-        text="Input user id to remove:",
-        reply_markup=settings_cancel_access()
-    )
-
-
-@router.message(RemoveMember.chat_id)
-async def settings_access_remove_member_done(event: types.Message, state: FSMContext):
-
-    if event.text.isdigit():
-        deleted = remove_member(event.text)
-        if deleted:
-            await event.answer(
-                text="User successful deleted.\n"+get_str_members(),
-                reply_markup=settings_access_menu()
-            )
-            await state.clear()
-        else:
-            await event.answer(
-                text="No issue chat_id. Try again.",
-                reply_markup=settings_cancel_access()
-            )
-    else:
-        await event.answer(
-            text="Incorrect id. Try again.",
-            reply_markup=settings_cancel_access()
-        )
-
-
 @router.callback_query(lambda c: c.data == "settings_access_cancel")
 async def settings_access_cancel(event: types.CallbackQuery, state: FSMContext):
     await state.clear()
     await event.message.edit_text(
-        text="Canceled\n" + get_str_members(),
+        text="Access manager\n\nCanceled.\n",
         reply_markup=settings_access_menu()
         )

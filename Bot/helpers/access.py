@@ -29,22 +29,6 @@ def add_new_member(
         logger.info("Updated data in json (new user)")
 
 
-def get_all_members() -> dict:
-    try:
-        with open("members.json", "r") as file:
-            content = file.read().strip()
-            members = json.loads(content) if content else {}
-            logger.info("members.json are successful loaded and returned.")
-    except FileNotFoundError:
-        members = {}
-        logger.warning("File members.json not found")
-    except ValueError:
-        logger.warning("Value error")
-        members = {}
-
-    return members
-
-
 def remove_member(chat_id: str) -> bool:
     members = read_json()
 
@@ -76,18 +60,6 @@ def create_json(path: str = "members.json") -> None:
         logger.info("new json: "+path)
 
 
-def get_str_members() -> str:
-    text = "Users:\n\n"
-
-    if get_all_members():
-        for key, val in get_all_members().items():
-            text += f"ID: {key}, NAME: {val['name']}, {val['group']}\n"
-    else:
-        text += "Empty. Add new user now!"
-
-    return text
-
-
 def get_from_json_members() -> list:
     temp = read_json()
 
@@ -110,3 +82,18 @@ def get_from_json_owners() -> list:
             owner_list.append(key)
 
     return owner_list
+
+
+def is_blocked(chat_id: str):
+    members = read_json()
+    return members.get(chat_id, {}).get("blocked", False)
+
+
+def is_whitelisted(chat_id: str):
+    members = read_json()
+    return members.get(chat_id, {}).get("whitelist", False)
+
+
+def get_member(chat_id: str) -> dict:
+    members = read_json()
+    return {chat_id: members[chat_id]} if chat_id in members else None
