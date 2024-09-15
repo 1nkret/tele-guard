@@ -36,7 +36,7 @@ async def change_status_blocker(status: bool):
 
     settings["blockerator_cursor"] = status
     with open("settings.json", "w") as file:
-        json.dump(settings, file)
+        json.dump(settings, file, indent=4)
 
 
 async def blocker_cursor():
