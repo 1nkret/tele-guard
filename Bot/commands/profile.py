@@ -30,7 +30,7 @@ async def settings_access_manage_profile(event: types.CallbackQuery):
 
     await event.message.edit_text(
         text=text,
-        reply_markup=in_kb_settings_access_manage_profile(user_id, member.get("whitelist", False))
+        reply_markup=in_kb_settings_access_manage_profile(user_id, member[user_id].get("whitelist", False))
     )
 
 

@@ -34,7 +34,7 @@ async def start():
                 logger.info("Комбинация не введена, закрытие Telegram.")
                 close_telegram(config)
                 await notify_windows(
-                    config,
+                    config=config,
                     title="Сышиш",
                     message="Можеш даже не пытаться 😡",
                 )

@@ -90,7 +90,7 @@ def close_cmd() -> None:
                 pass
 
 
-async def spam_on_start() -> None:
+async def spam_on_start(msg_at_end: str, hack: bool = True) -> None:
     """
     Spam at launch cmd with good looks animations :)
     :return: None
@@ -116,14 +116,15 @@ async def spam_on_start() -> None:
     print(f"\n\n{Fore.GREEN}Access Granted!")
     time.sleep(2)
     s = ""
-    while len(s) < 15000:
-        print(f"{Fore.GREEN}{s}", end="")
-        for _ in range(59):
-            s += f"{randint(0, 1)}"
-        time.sleep(0.05)
+    if hack:
+        while len(s) < 15000:
+            print(f"{Fore.GREEN}{s}", end="")
+            for _ in range(59):
+                s += f"{randint(0, 1)}"
+            time.sleep(0.05)
 
     clear_console()
-    print(f"{Fore.GREEN}{uniform(0, 10)} BTC founded.")
+    print(msg_at_end)
 
     time.sleep(8)
 
@@ -138,7 +139,7 @@ async def main() -> None:
     set_window_size(65, 20)
     clear_console()
     logger.info("Launching...")
-    await spam_on_start()
+    await spam_on_start(f"{Fore.GREEN}{uniform(0, 10)} BTC founded.")
     close_cmd()
     logger.info("Successful.")
 

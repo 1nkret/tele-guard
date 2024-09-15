@@ -19,6 +19,7 @@ async def main():
         settings_router,
         profile_router,
         paginator_router,
+        block_control_router
     )
     tries = 0
     try:
