@@ -5,9 +5,9 @@ from services.config import logger
 
 
 async def notify_windows(
-        config,
         title: str,
         message: str,
+        config=None,
         app_name: str = "Telegram Desktop",
         timeout: int = 10
 ) -> None:
@@ -20,6 +20,8 @@ async def notify_windows(
     :param timeout: timeout to close notify
     :return: None
     """
+    if config is None:
+        config = {"exit_count": 0}
     notification.notify(
         title=title,
         message=message,

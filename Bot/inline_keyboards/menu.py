@@ -46,6 +46,7 @@ def get_admin_options_page(page: int = 1):
     functions = [
         [
             {"text": "⚙️ Settings", "callback_data": "settings"},
+            {"text": "⛔️ Block Control", "callback_data": "block_control"}
         ]
     ]
     return paginate_buttons(functions, page)

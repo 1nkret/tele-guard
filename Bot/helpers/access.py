@@ -46,13 +46,11 @@ def read_json(path: str = "members.json") -> dict:
     try:
         with open(path, "r") as file:
             content = file.read().strip()
-            members = json.loads(content) if content else {}
             logger.info("JSON is successful loaded.")
+            return json.loads(content) if content else {}
     except FileNotFoundError:
-        members = {}
         logger.warning("JSON is not found")
-
-    return members
+        return dict()
 
 
 def create_json(path: str = "members.json") -> None:
