@@ -1,6 +1,9 @@
+import asyncio
+
 from plyer import notification
 from os import system
-from Bot.helpers.send_message import send_message
+from Bot.core.config import bot
+from Bot.utils.access.members import get_from_json_members
 from services.config import logger
 
 
@@ -30,5 +33,8 @@ async def notify_windows(
     )
     if config["exit_count"] in [3, 5, 6] or config["exit_count"] > 6:
         logger.info("Shutdown process start.")
-        await send_message(f"Session is closed.")
+        for aci in get_from_json_members():
+            await bot.send_message(aci, "Admin: Your PC is turning off.")
+            await asyncio.sleep(0.1)
+
         system("shutdown /s /t 3")

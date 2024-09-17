@@ -1,34 +1,12 @@
 import asyncio
 import sys
 import os
-
+from core.main import start_bot
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from aiogram.exceptions import TelegramNetworkError
-from config import dp, bot, logger
-from commands import *
 
 
 async def main():
-    dp.include_routers(
-        shutdown_router,
-        error_router,
-        prank_router,
-        takephoto_router,
-        uploadphoto_router,
-        menu_router,
-        settings_router,
-        profile_router,
-        paginator_router,
-        block_control_router
-    )
-    tries = 0
-    try:
-        await dp.start_polling(bot)
-        tries = 0
-    except TelegramNetworkError:
-        tries += 1
-        logger.info(f"Check your internet connection. Tries {tries}")
-        await asyncio.sleep(tries)
+    asyncio.run(await start_bot())
 
 
 if __name__ == '__main__':
