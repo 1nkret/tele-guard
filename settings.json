@@ -1,1 +1,4 @@
-{"blocked": true, "blockerator_cursor": false}
+{
+    "blocked": true,
+    "blockerator_cursor": true
+}

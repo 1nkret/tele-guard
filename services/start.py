@@ -8,17 +8,19 @@ from services.telegram_utils import is_telegram_open, close_telegram
 from services.notify import notify_windows
 from services.sequence_checker import check_sequence
 from services.console_messanger import start_prank, close_cmd
-from services.update_time import update_time
 
-from Bot.helpers.message_start_session import message_start_session
+from Bot.utils.chat.message_start_session import message_start_session
 
 
 async def start():
+    time_now = datetime.now()
     logger.info("Loading guard...")
     config = load_config()
     load_logging("blocker")
 
-    config["locked"], config["session_time"] = True, datetime.now()
+    config["locked"] = True
+    config["session_time"] = time_now
+    config["session_time_update"] = time_now
     save_config(config)
     await message_start_session()
 
@@ -45,6 +47,4 @@ async def start():
             if await check_sequence(['f10', 'f10', 'f10'], True, config):
                 close_telegram(config)
 
-        if randint(1, 10) == 5:
-            await update_time(config)
         await asyncio.sleep(1)
