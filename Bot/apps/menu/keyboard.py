@@ -47,6 +47,8 @@ def get_admin_options_page(page: int = 1):
         [
             {"text": "⚙️ Settings", "callback_data": "settings"},
             {"text": "⛔️ Block Control", "callback_data": "block_control"},
+        ],
+        [
             {"text": "🛠️ Process Manager", "callback_data": "process_manager"}
         ]
     ]
