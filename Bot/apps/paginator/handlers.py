@@ -4,6 +4,7 @@ from Bot.utils.time.get_session_time import session_time
 from Bot.utils.access.members import focus_mode_immunity
 from Bot.apps.menu.keyboard import get_main_functions_page, get_photo_options_page, get_admin_options_page
 from Bot.apps.settings.keyboard import settings_access_menu
+from Bot.apps.process.keyboards import process_manager_menu
 
 router = Router()
 
@@ -40,3 +41,5 @@ async def paginator_handle_callback(event: types.CallbackQuery):
             await event.message.edit_reply_markup(reply_markup=get_admin_options_page(int(page)))
         elif current_menu.startswith("access_manager"):
             await event.message.edit_reply_markup(reply_markup=settings_access_menu(int(page)))
+        elif current_menu.startswith("process_manager"):
+            await event.message.edit_reply_markup(reply_markup=process_manager_menu(int(page)))
