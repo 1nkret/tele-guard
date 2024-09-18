@@ -32,7 +32,7 @@ def process_manager_pid_profile(
     buttons = [
         [
             InlineKeyboardButton(
-                text="Kill",
+                text="❌ Kill ❌",
                 callback_data=f"process_manager_kill_{pid}"
             )
         ],
