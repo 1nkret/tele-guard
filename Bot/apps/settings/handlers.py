@@ -1,14 +1,17 @@
+import asyncio
+
 from aiogram import Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
+from aiogram.types import InlineKeyboardMarkup
 
-from Bot.utils.access.json import read_json
+from Bot.core.config import bot
+
 from Bot.utils.chat.check_chat_id import check_chat_id
-from Bot.utils.access.members import get_from_json_owners, add_new_member
+from Bot.utils.access.members import get_from_json_owners, add_new_member, get_from_json_members
 from Bot.utils.access.status import change_status_blocked
 
 from Bot.apps.settings.forms import AddNewMember
-
 from Bot.apps.settings.keyboard import *
 
 router = Router()
@@ -106,8 +109,17 @@ async def settings_access_cancel(event: types.CallbackQuery, state: FSMContext):
 @router.callback_query(lambda c: c.data == "settings_focus_mode_switch")
 async def settings_focus_mode(event: types.CallbackQuery):
     status = read_json("settings.json").get("blocked", False)
-
+    text = "Focus mode is disabled. ☀️" if status else "Focus mode is enabled. 🌙"
+    kb = back_to_menu_keyboard() if status else None
     change_status_blocked(False if status else True)
     await event.message.edit_reply_markup(
         reply_markup=settings_menu()
     )
+
+    for aci in get_from_json_members():
+        await bot.send_message(
+            chat_id=aci,
+            text=text,
+            reply_markup=kb
+        )
+        await asyncio.sleep(0.1)
