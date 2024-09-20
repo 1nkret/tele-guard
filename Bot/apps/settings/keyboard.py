@@ -78,3 +78,15 @@ def settings_choose_group():
         ]
     ]
     return types.InlineKeyboardMarkup(inline_keyboard=buttons)
+
+
+def back_to_menu_keyboard():
+    buttons = [
+        [
+            types.InlineKeyboardButton(
+                text="Menu",
+                callback_data="menu"
+            )
+        ]
+    ]
+    return types.InlineKeyboardMarkup(inline_keyboard=buttons)

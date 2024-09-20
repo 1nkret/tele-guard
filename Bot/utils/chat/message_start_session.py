@@ -8,7 +8,7 @@ from Bot.utils.access.members import get_from_json_members
 
 async def message_start_session() -> None:
     """
-    Function is send message to allowed users on start session.
+    Function is send message_echo to allowed users on start session.
     :return: None
     """
     tries = 0

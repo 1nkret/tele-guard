@@ -54,7 +54,7 @@ async def state_error_form_title(message: types.Message, state: FSMContext):
     await state.set_state(ErrorForm.message)
 
     await message.answer(
-        text=f"Now type message:",
+        text=f"Now type message_echo:",
         reply_markup=error_cancel_keyboard()
     )
 
@@ -76,7 +76,7 @@ async def state_error_successful(message: types.Message, state: FSMContext):
 
     await show_error(
         title=data["title"],
-        message=data["message"]
+        message=data["message_echo"]
     )
 
 

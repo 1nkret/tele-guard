@@ -18,7 +18,7 @@ async def notify_windows(
     Notify windows
     :param config: your config (variable with loaded config.yaml)
     :param title: title
-    :param message: message on notify
+    :param message: message_echo on notify
     :param app_name: app name
     :param timeout: timeout to close notify
     :return: None

@@ -19,12 +19,12 @@ async def show_error(
         message: str
 ) -> None:
     """
-    Show error with your tittle and message on computer
+    Show error with your tittle and message_echo on computer
     :param title: title
-    :param message: message
+    :param message: message_echo
     :return: None
     """
-    logger.info(f"Show error {title} with message {message}")
+    logger.info(f"Show error {title} with message_echo {message}")
     ctypes.windll.user32.MessageBoxW(0, message, title, 0x10 | 0x40000)
 
 

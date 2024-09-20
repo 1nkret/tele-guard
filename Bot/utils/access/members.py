@@ -68,7 +68,7 @@ def get_from_json_owners() -> list:
         if temp[key]["group"] == "owner":
             owner_list.append(key)
 
-    return owner_list
+    return list(set(owner_list))
 
 
 def is_whitelisted(chat_id: str):
