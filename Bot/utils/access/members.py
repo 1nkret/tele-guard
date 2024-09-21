@@ -97,7 +97,7 @@ def get_member(chat_id: str) -> dict:
 
 
 def focus_mode_immunity(chat_id: str) -> str:
-    if is_whitelisted(chat_id) and is_blocked():
+    if is_blocked():
         return "🌙"
     else:
         return str()
