@@ -167,5 +167,5 @@ media/take_photo
 media/upload_photos
 !media/take_photo/default.jpg
 members.json
-config.yaml
+config.json
 settings.json
