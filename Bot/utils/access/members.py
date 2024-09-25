@@ -47,9 +47,10 @@ def remove_member(chat_id: str) -> bool:
 
 def get_from_json_members() -> list:
     temp = read_json()
+    root = getenv("OWNER")
     logger.info("Getting from json list with id`s members.")
 
-    member_list = []
+    member_list = [root]
     for key in temp.keys():
         group = temp[key]["group"]
         if group == "member" or group == "owner":
