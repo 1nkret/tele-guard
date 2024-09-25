@@ -1,6 +1,6 @@
 import os.path
 
-import yaml
+import json
 import logging
 
 
@@ -18,23 +18,25 @@ def load_logging(filename: str) -> None:
     logging.basicConfig(filename=f'logs/{filename}.log', level=logging.INFO)
 
 
-def load_config(path='config.yaml') -> yaml:
+def load_config(path='config.json') -> json:
     """
     Load yaml config
     :param path: path to config
     :return: yaml
     """
+    if not os.path.exists(path):
+        return {}
+
     with open(path, 'r') as file:
         try:
-            cfg = yaml.safe_load(file)
-        except yaml.reader.ReaderError:
-            cfg = {}
-        if cfg is None:
+            cfg = json.load(file)
+        except json.decoder.JSONDecodeError:
             return {}
-        return cfg
+
+    return cfg
 
 
-def save_config(cfg, path='config.yaml') -> None:
+def save_config(cfg, path='config.json') -> None:
     """
     Save yaml config
     :param cfg: modified cfg to save
@@ -42,4 +44,4 @@ def save_config(cfg, path='config.yaml') -> None:
     :return: None
     """
     with open(path, 'w') as file:
-        yaml.dump(cfg, file, default_flow_style=True)
+        json.dump(cfg, file, indent=4)
