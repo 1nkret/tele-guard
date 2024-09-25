@@ -7,7 +7,7 @@ from Bot.apps.broadcast.forms import Broadcast
 from Bot.apps.broadcast.keyboards import broadcast_cancel
 from Bot.apps.menu.keyboard import get_main_menu
 
-from Bot.core.config import bot
+from Bot.core.config import bot, dp
 from Bot.utils.access.members import get_from_json_members
 
 router = Router()

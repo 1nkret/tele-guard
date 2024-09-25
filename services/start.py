@@ -13,14 +13,11 @@ from Bot.utils.chat.message_start_session import message_start_session
 
 
 async def start():
-    time_now = datetime.now()
     logger.info("Loading guard...")
     config = load_config()
     load_logging("blocker")
 
     config["locked"] = True
-    config["session_time"] = time_now
-    config["session_time_update"] = time_now
     save_config(config)
     await message_start_session()
 

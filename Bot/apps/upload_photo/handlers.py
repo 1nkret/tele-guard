@@ -34,11 +34,10 @@ async def upload_photo_to_monitor(event: types.CallbackQuery or types.Message, s
                 parse_mode="HTML"
             )
             return
-
     if chat_id in get_from_json_members():
         if is_message:
             await state.set_state(PhotoUploadStates.waiting_for_photo)
-            await event.message.answer(
+            await event.answer(
                 text="Send your image (required 1920x1080 or 2K)",
                 reply_markup=upload_cancel_keyboard()
             )

@@ -6,11 +6,13 @@ from os import getenv
 from datetime import datetime
 
 from services.config import load_config
+from Bot.utils.loader.load_logger import check_logger
 
 load_dotenv()
 API_TOKEN = getenv("API_TOKEN")
 owner_url = getenv("OWNER_TELEGRAM_URL")
 
+check_logger("logs/", "bot.log")
 logging.basicConfig(filename="logs/bot.log", level=logging.INFO)
 logger = logging.getLogger(__name__)
 
