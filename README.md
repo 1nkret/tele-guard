@@ -44,8 +44,24 @@ pip install -r requirements.txt
 API_TOKEN='your-bot-token'
 OWNER='your_telegram.chat.id'
 ALLOWED_CHAT_IDS='your_friends.chat.id','your_girlfriend.chat.id','and_more.chat.id'
+BLOCKER='false'
 ```
 **OWNER** - владелец может быть всего один, но в самом боте можно добавить совладельца.
+**BLOCKER** - если установить 'true', то у вас будет включена функция блокировки
+Telegram Desktop (для разблокировки, при открытии консоли нажмите 3 раза на ESC)
+
+4. Создайте в планировщике задач новую задачу ![img](https://i.imgur.com/WtFLCUq.png)
+
+5. Добавьте триггер ![img](https://i.imgur.com/sLhZlUp.png)
+
+6. Теперь нужно добавить сам скрипт в эту задачу. Создайте "Действие", после чего пропишите в
+"Программа или сценарий" путь к вашему интерпретатеру (path/to/project/.venv/Scripts/pythonw.exe 
+(pythonw.exe - для фоновой работы)). Далее в "Добавить аргументы" прописываем путь к main.py
+(path/to/project/main.py). В последней строке прописываем путь к проекту и нажимаем "ОК".
+![img](https://i.imgur.com/vSiaj2C.png)
+
+7. После нажатия "ОК", мы добавили нашу программу в планировщик задач. Теперь после запуска 
+компьютера, бот будет запускаться автоматически.
 
 ## Запуск
 1. Запустите блокировку телеграмма (не обязательно, по желанию):
@@ -53,12 +69,7 @@ ALLOWED_CHAT_IDS='your_friends.chat.id','your_girlfriend.chat.id','and_more.chat
 python main.py
 ```
 
-2. Запустите бота:
-```bash
-python Bot/telegram_bot.py
-```
-
-3. Теперь вы можете пользоваться ботом.
+2. Теперь вы можете пользоваться ботом.
 
 ## Команды
 - `/menu` - меню
