@@ -75,5 +75,11 @@ python main.py
 - `/menu` - меню
 - `/help` - руководство
 
+## Технологии
+- Python 3.10
+- Aiogram 3
+- PyAutoGUI
+- Keyboard
+- Pillow
 
 *Only better from here on out... 1nkret <3*
