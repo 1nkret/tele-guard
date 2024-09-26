@@ -78,6 +78,7 @@ python main.py
 ## Технологии
 - Python 3.10
 - Aiogram 3
+- Json
 - PyAutoGUI
 - Keyboard
 - Pillow
