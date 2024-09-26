@@ -4,7 +4,7 @@ import json
 import logging
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("Config")
 
 
 def load_logging(filename: str) -> None:

@@ -14,7 +14,7 @@ owner_url = getenv("OWNER_TELEGRAM_URL")
 
 check_logger("logs/", "bot.log")
 logging.basicConfig(filename="logs/bot.log", level=logging.INFO)
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("BOT")
 
 config = load_config()
 

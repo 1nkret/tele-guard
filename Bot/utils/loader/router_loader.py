@@ -13,7 +13,7 @@ def load_routers():
     for root, dirs, files in os.walk(handlers_dir):
         if "handlers.py" in files:
             relative_path = os.path.relpath(root, handlers_dir)
-            module_name = f"apps.{relative_path.replace(os.sep, '.')}.handlers"
+            module_name = f"Bot.apps.{relative_path.replace(os.sep, '.')}.handlers"
             module_name = module_name.lstrip('.')
 
             module = importlib.import_module(module_name)
