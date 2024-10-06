@@ -7,8 +7,6 @@ from services.sequence_checker import check_sequence
 from services.console_messanger import start_prank, close_cmd
 from services.load_env import load_env
 
-from Bot.utils.chat.message_start_session import message_start_session
-
 
 async def start():
     if load_env() == "true":
@@ -19,7 +17,6 @@ async def start():
 
         config["locked"] = True
         save_config(config)
-        await message_start_session()
 
         logger.info("Successful.")
         while True:
