@@ -53,7 +53,8 @@ def get_admin_options_page(page: int = 1):
             {"text": "⛔️ Block Control", "callback_data": "block_control"},
         ],
         [
-            {"text": "🛠️ Process Manager", "callback_data": "process_manager"}
+            {"text": "🛠️ Process Manager", "callback_data": "process_manager"},
+            {"text": "Update", "callback_data": "update_project"},
         ]
     ]
     return paginate_buttons(functions, page)
