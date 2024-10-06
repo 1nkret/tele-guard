@@ -40,7 +40,7 @@ def restart_script():
     print("Restart script...")
     try:
         local_path = os.path.abspath(os.getcwd())
-        python_path = os.path.join(local_path, '..', '..', '.venv', 'Scripts', 'python.exe')
+        python_path = os.path.join(local_path, '..', '..', '.venv', 'Scripts', 'pythonw.exe')
         script_path = os.path.join(local_path, '..', '..', "main.py")
         subprocess.Popen([python_path, script_path])
         print("Script started.")
