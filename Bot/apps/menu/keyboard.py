@@ -33,11 +33,15 @@ def get_photo_options_page(
     functions = [
         [
             {"text": "🖥 Upload photo", "callback_data": "upload_photo"}
-        ]
+        ],
+        []
     ]
     if chat_id in get_from_json_owners():
         functions[0].append(
             {"text": "📸 Tape photo", "callback_data": "take_photo"}
+        )
+        functions[1].append(
+            {"text": "Screenshot", "callback_data": "screenshot"}
         )
     return paginate_buttons(functions, page)
 
