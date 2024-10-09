@@ -41,7 +41,7 @@ def get_photo_options_page(
             {"text": "📸 Tape photo", "callback_data": "take_photo"}
         )
         functions[1].append(
-            {"text": "Screenshot", "callback_data": "screenshot"}
+            {"text": "📸 Screenshot", "callback_data": "screenshot"}
         )
     return paginate_buttons(functions, page)
 
