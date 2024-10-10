@@ -30,6 +30,8 @@ async def update_project(chat_id):
             print(f"Dir {project_root} exists. Executing git pull...")
             subprocess.run(["git", "pull", "origin", branch_name], check=True)
 
+        subprocess.run(["pip", "install", "-r", "requirements.txt"], check=True)
+
         await bot.send_message(chat_id, "Bot successfully updated.")
         print("Project updated.")
     except subprocess.CalledProcessError as e:
