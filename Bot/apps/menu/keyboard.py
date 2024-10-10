@@ -21,6 +21,9 @@ def get_main_functions_page(page: int = 1):
         [
             {"text": "💣 Shutdown", "callback_data": "shutdown"},
             {"text": "💿 Prank", "callback_data": "prank"},
+        ],
+        [
+            {"text": "Media player", "callback_data": "media_player"}
         ]
     ]
     return paginate_buttons(functions, page)
