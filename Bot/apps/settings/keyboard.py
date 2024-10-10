@@ -20,6 +20,12 @@ def settings_menu():
         ],
         [
             types.InlineKeyboardButton(
+                text="Update",
+                callback_data="update_project"
+            )
+        ],
+        [
+            types.InlineKeyboardButton(
                 text="🏠 Home 🏠",
                 callback_data="menu"
             )
