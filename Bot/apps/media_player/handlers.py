@@ -40,12 +40,20 @@ async def media_player_prev_handler(event: types.CallbackQuery):
 @router.callback_query(lambda c: c.data == "mp_volume_p")
 async def media_player_prev_handler(event: types.CallbackQuery):
     media_player.volume_up()
+    media_player.volume_up()
+    media_player.volume_up()
+    media_player.volume_up()
+    media_player.volume_up()
 
     await event.answer("Volume+")
 
 
 @router.callback_query(lambda c: c.data == "mp_volume_m")
 async def media_player_prev_handler(event: types.CallbackQuery):
+    media_player.volume_down()
+    media_player.volume_down()
+    media_player.volume_down()
+    media_player.volume_down()
     media_player.volume_down()
 
     await event.answer("Volume-")
